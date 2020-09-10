@@ -8,7 +8,7 @@ export default function Slug() {
 
   useEffect(() => {
     async function checkSlug() {
-      const res = await fetch(`http://localhost:5000/${slug}`);
+      const res = await fetch(`https://amanly-server.vercel.app/${slug}`);
       if (res.status === 404) {
         history.push('/');
       } else {

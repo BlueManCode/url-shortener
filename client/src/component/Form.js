@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Form.css';
 
 export default function Form() {
   const [Err, setErr] = useState(null);
@@ -9,7 +8,7 @@ export default function Form() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const url = 'http://localhost:5000/add';
+    const url = 'https://amanly-server.vercel.app/add';
     const body = {
       slug: Slug,
       url: Url,

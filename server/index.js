@@ -36,11 +36,6 @@ app.post('/add', async (req, res) => {
   }
 });
 
-// app.get('/getAllSlugs', async (req, res) => {
-//   const doc = await url_model.find({});
-//   res.send(doc);
-// });
-
 app.get('/:slug', async (req, res) => {
   const { slug } = req.params;
 
