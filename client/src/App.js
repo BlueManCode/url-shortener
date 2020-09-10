@@ -1,28 +1,21 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Form from './component/Form';
+import Home from './component/Home';
+import Slug from './component/Slug';
 
 function App() {
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-      <div
-        style={{
-          background: 'rgb(23, 47, 65)',
-          height: '60vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Form />
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/:slug">
+          <Slug />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

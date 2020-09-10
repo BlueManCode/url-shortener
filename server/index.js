@@ -13,11 +13,21 @@ app.use(volleyball);
 app.use(express.json());
 
 app.post('/add', async (req, res) => {
-  const slug = req.body.slug.toLowerCase();
+  const slug = req.body.slug.split(' ').join('').toLowerCase();
+
+  // if the slug is a protected keyword
+  if (slug === 'add') {
+    res.sendStatus(404).send('Cant add slug');
+  }
+
+  // check if the slug exist
   const doc = await url_model.findOne({ slug: slug }).exec();
   if (doc !== null) {
     res.sendStatus(404).send(new Error('Slug Already Exist!'));
-  } else {
+  }
+
+  // if the slug doesnt exist create it
+  else {
     await new url_model({
       slug: slug,
       url: req.body.url,
@@ -26,16 +36,19 @@ app.post('/add', async (req, res) => {
   }
 });
 
-app.get('/getAllSlugs', async (req, res) => {
-  const doc = await url_model.find({});
-  res.send(doc);
-});
+// app.get('/getAllSlugs', async (req, res) => {
+//   const doc = await url_model.find({});
+//   res.send(doc);
+// });
 
 app.get('/:slug', async (req, res) => {
   const { slug } = req.params;
+
+  // check if the slug exist nd send the url
   const doc = await url_model.findOne({ slug: slug }).exec();
   if (doc !== null) {
-    res.send(doc.url);
+    const url = doc.url;
+    res.json(url);
   } else {
     res.sendStatus(404).send("slug doesn't exist");
   }

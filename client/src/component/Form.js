@@ -5,7 +5,7 @@ export default function Form() {
   const [Err, setErr] = useState(null);
   const [Slug, setSlug] = useState('');
   const [Url, setUrl] = useState('');
-  const [Suc, setSuc] = useState(null);
+  const [Succ, setSucc] = useState(null);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -23,7 +23,7 @@ export default function Form() {
       body: JSON.stringify(body),
     });
 
-    if (res.status === 404) {
+    if (res.status !== 200) {
       setErr('Slug Already Exist');
       setTimeout(() => {
         setErr(null);
@@ -31,8 +31,12 @@ export default function Form() {
         setUrl('');
       }, 3000);
     } else {
-      const json = await res.json();
-      console.log(json);
+      setSucc('Slug Created');
+      setTimeout(() => {
+        setSucc(null);
+        setSlug('');
+        setUrl('');
+      }, 3000);
     }
   }
 
@@ -77,6 +81,19 @@ export default function Form() {
             borderRadius: '4px',
           }}>
           {Err}
+        </div>
+      ) : null}
+      {Succ ? (
+        <div
+          style={{
+            background: 'green',
+            color: 'white',
+            fontSize: '17px',
+            padding: '10px',
+            fontWeight: 'bold',
+            borderRadius: '4px',
+          }}>
+          {Succ}
         </div>
       ) : null}
     </div>
