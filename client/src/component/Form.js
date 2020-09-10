@@ -45,7 +45,7 @@ export default function Form() {
         <input
           style={{ padding: '25px', fontSize: '17px' }}
           required
-          placeholder="Slug"
+          placeholder="Slug Name"
           className="u-half-width"
           type="text"
           value={Slug}
